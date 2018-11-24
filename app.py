@@ -3,6 +3,7 @@ from flask import Flask, render_template, flash, request, redirect, url_for, ses
 from werkzeug.utils import secure_filename
 
 from scripts.utils import las2df, minmax_depth
+from scripts.plotutils import htmlbokehplot
 
 UPLOAD_FOLDER = os.path.dirname(__file__)+'/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'las', 'png']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -41,19 +42,20 @@ def upload_file():
 #            return redirect(url_for('uploaded_file',filename=filename))
     return render_template('index.html', title='LITHOGRAPH')
 
-from flask import send_from_directory
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
+# from flask import send_from_directory
+#
+# @app.route('/uploads/<filename>')
+# def uploaded_file(filename):
+#     return send_from_directory(app.config['UPLOAD_FOLDER'],
+#                                filename)
 
 @app.route('/uploaded')
 def file_uploaded():
     filename = request.args['filename']  # counterpart for url_for()
     df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     min, max = minmax_depth(df, ['GR'])
-    return render_template('index.html', title='LITHOGRAPH', maxdepth=max, filename=filename, html='<h2>Test test</h2>')
+    bokehhtml = htmlbokehplot(df,min,max)
+    return render_template('index.html', title='LITHOGRAPH', maxdepth=max, filename=filename, html=bokehhtml)
 
 if __name__ == '__main__':
     app.run(debug = True)
