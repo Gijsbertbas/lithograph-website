@@ -13,6 +13,9 @@ from bokeh.embed import file_html
 #from bokeh.models import ColumnDataSource
 
 def htmlbokehplot(df,mi,ma):
+
+    df = df[(df['DEPT'] >= mi) & (df['DEPT'] <= ma)]
+
     x = df['GR']
     y = df['DEPT']
 

@@ -20,9 +20,52 @@
 					<p>An online log classification tool</p>
 				</header>
 				<footer>
-					<a href="#first" class="button scrolly">See what you can do with your data</a>
+					<a href="#intro" class="button scrolly">See what you can do with your data</a>
 				</footer>
 			</section>
+
+			<!-- Intro -->
+				<section id="intro" class="main">
+					<header>
+						<div class="container">
+							<h2>Introduction: the model</h2>
+							<p>We trained a model to predict your lithology.<br />
+							Se below some details.</p>
+						</div>
+					</header>
+					<div class="content dark style2">
+						<div class="container">
+							<div class="row">
+								<div class="col-4 col-12-narrow">
+									<section>
+										<h3>Augue vivamus sed ipsum commodo lorem dolor</h3>
+										<p>Gravida dis placerat lectus ante vel nunc euismod est turpis sodales. Diam
+										tempor dui lacinia eget ornare varius gravida. Gravida dis placerat lectus ante
+										vel nunc euismod est turpis sodales. Diam tempor dui lacinia accumsan vivamus
+										augue cubilia vivamus nisi eu eget ornare varius gravida euismod.  Gravida dis
+										lorem ipsum dolor placerat magna tempus feugiat.</p>
+										<p>Lectus ante vel nunc euismod est turpis sodales. Diam tempor dui lacinia
+										accumsan vivamus augue cubilia vivamus nisi eu eget ornare varius gravida dolore
+										euismod lorem ipsum dolor.</p>
+										<footer>
+											<a href="#third" class="button scrolly">Accumsan nisi tempor</a>
+										</footer>
+									</section>
+								</div>
+								<div class="col-8 col-12-narrow">
+									<div class="row">
+										<div class="col-6"><a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a></div>
+										<div class="col-6"><a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a></div>
+										<div class="col-6"><a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a></div>
+										<div class="col-6"><a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a></div>
+										<div class="col-6"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
+										<div class="col-6"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 
 		<!-- First -->
 			<section id="first" class="main">
@@ -30,7 +73,7 @@
 					<div class="container">
 						<h2>Upload your logfile</h2>
 						<p>Use the UPLOAD button below to upload your logfile<br />
-						The log as to have a .las extension (and assumes this is actually a LAS file...)</p>
+						The log has to have a .las extension (and assumes this is actually a LAS file...)</p>
 						<p>
 						<form method="post" enctype="multipart/form-data" style="display: inline;"  action="upload">
 						<label for="file-upload" class="button special">
@@ -71,12 +114,12 @@
 								<section>
 									<span class="feature-icon"><span class="icon fa-cloud"></span></span>
 									<header>
-										<h3>Accumsan</h3>
+										<h3>Give depth range:</h3>
 									</header>
-									<p>Gravida dis placerat lectus ante vel nunc euismod est turpis sodales.
-									Diam tempor dui lacinia accumsan vivamus. Gravida dis placerat lectus
-									ante vel nunc euismod est turpis sodales. Diam tempor dui lacinia
-									accumsan vivamus.</p>
+									<p>
+										<input type="number" name="midepth" min={{min}} max={{max}} value={{min}}>
+										<label for="slider-midepth">Minimum depth</label>
+</p>
 								</section>
 							</div>
 							<div class="col-12">
@@ -89,8 +132,9 @@
 				</div>
 			</section>
 
+
 		<!-- Second -->
-			<section id="second" class="main">
+<!--			<section id="second" class="main">
 				<header>
 					<div class="container">
 						<h2>Euismod sed feugiat lorem tempus magna</h2>
@@ -131,9 +175,10 @@
 					</div>
 				</div>
 			</section>
+-->
 
 		<!-- Third -->
-			<section id="third" class="main">
+<!--			<section id="third" class="main">
 				<header>
 					<div class="container">
 						<h2>Ornare varius lorem ipsum ante lectus</h2>
@@ -189,6 +234,7 @@
 					</div>
 				</div>
 			</section>
+-->
 
 		<!-- Basic Elements -->
 		<!--
@@ -358,9 +404,9 @@
 			<section id="fourth" class="main">
 				<header>
 					<div class="container">
-						<h2>Sed feugiat ipsum consequat</h2>
-						<p>Gravida dis placerat lectus ante vel nunc euismod eget ornare varius gravida euismod lorem ipsum dolor sit amet consequat<br />
-						feugiat. Gravida dis placerat lectus ante vel nunc euismod eget ornare varius gravida euismod lorem ipsum dolor sit amet.</p>
+						<h2>Give us some feedback!</h2>
+						<p>Please give us your opinion on the performance of the model.<br />
+						(...or on the website design if you like to.)</p>
 					</div>
 				</header>
 				<div class="content style4 featured">
@@ -385,15 +431,15 @@
 		<!-- Footer -->
 			<section id="footer">
 				<ul class="icons">
-					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+<!--					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
 					<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-					<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+-->					<li><a href="https://github.com/Gijsbertbas/lithograph-website" class="icon fa-github"><span class="label">GitHub</span></a></li>
 				</ul>
 				<div class="copyright">
 					<ul class="menu">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a> AND the <a href="https://github.com/roliveira/lithograph">LITHOGRAPH team</a></li>
 					</ul>
 				</div>
 			</section>

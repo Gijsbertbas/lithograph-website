@@ -1,3 +1,5 @@
 Flask
 pandas
 welly
+bokeh
+xgboost

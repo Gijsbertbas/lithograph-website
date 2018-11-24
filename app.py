@@ -53,9 +53,13 @@ def upload_file():
 def file_uploaded():
     filename = request.args['filename']  # counterpart for url_for()
     df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    min, max = minmax_depth(df, ['GR'])
-    bokehhtml = htmlbokehplot(df,min,max)
-    return render_template('index.html', title='LITHOGRAPH', maxdepth=max, filename=filename, html=bokehhtml)
+    mi, ma = minmax_depth(df, ['GR','RHOB'])
+    bokehhtml = htmlbokehplot(df,mi,ma)
+    print('min = {}'.format(mi))
+    print('max = {}'.format(ma))
+    return render_template('index.html', title='LITHOGRAPH', min=mi, max=ma, filename=filename, html=bokehhtml)
 
 if __name__ == '__main__':
     app.run(debug = True)
+
+# run with flask run --host=0.0.0.0

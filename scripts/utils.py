@@ -6,6 +6,7 @@ import numpy as np
 def las2df(fname):
     w = welly.Well.from_las(fname)
     df = w.df()
+    df.index*=-1
     df['DEPT'] = df.index
     return df
 
@@ -24,5 +25,5 @@ def minmax_idx(logs_df, tracks):
 
 
 def minmax_depth(logs_df, tracks):
-    imin, imax = minmax_idx(logs_df, tracks)
+    imax, imin = minmax_idx(logs_df, tracks)
     return logs_df.index[imin], logs_df.index[imax]
