@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 
 from scripts.utils import las2df, minmax_depth
 
-UPLOAD_FOLDER = '/home/gijs/Projects/lithograph-website/uploads'
+UPLOAD_FOLDER = os.path.dirname(__file__)+'/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'las', 'png']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__, static_url_path='')
@@ -36,7 +36,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             print('filename = {}'.format(filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('file_uploaded', filename=filename))
+            return redirect(url_for('file_uploaded', filename=filename, _anchor='first'))
 #            return redirect(request.url)
 #            return redirect(url_for('uploaded_file',filename=filename))
     return render_template('index.html', title='LITHOGRAPH')
@@ -53,7 +53,7 @@ def file_uploaded():
     filename = request.args['filename']  # counterpart for url_for()
     df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     min, max = minmax_depth(df, ['GR'])
-    return render_template('index.html', title='LITHOGRAPH', maxdepth=max)
+    return render_template('index.html', title='LITHOGRAPH', maxdepth=max, filename=filename, html='<h2>Test test</h2>')
 
 if __name__ == '__main__':
     app.run(debug = True)
