@@ -1,10 +1,11 @@
 import os
 from flask import Flask, render_template, flash, request, redirect, url_for, session
-
 from werkzeug.utils import secure_filename
 
+from scripts.utils import las2df, minmax_depth
+
 UPLOAD_FOLDER = '/home/gijs/Projects/lithograph-website/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'las']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['txt', 'las', 'png']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__, static_url_path='')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -14,11 +15,9 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
 @app.route('/')
 def index():
     return render_template('index.html', title='LITHOGRAPH')
-
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -37,7 +36,8 @@ def upload_file():
             filename = secure_filename(file.filename)
             print('filename = {}'.format(filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(request.url)
+            return redirect(url_for('file_uploaded', filename=filename))
+#            return redirect(request.url)
 #            return redirect(url_for('uploaded_file',filename=filename))
     return render_template('index.html', title='LITHOGRAPH')
 
@@ -47,6 +47,13 @@ from flask import send_from_directory
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+@app.route('/uploaded')
+def file_uploaded():
+    filename = request.args['filename']  # counterpart for url_for()
+    df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    min, max = minmax_depth(df, ['GR'])
+    return render_template('index.html', title='LITHOGRAPH', maxdepth=max)
 
 if __name__ == '__main__':
     app.run(debug = True)
