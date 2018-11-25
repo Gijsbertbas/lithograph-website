@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+{% block content %}
+
+		<!-- First -->
+			<section id="upload" class="main">
+				<header>
+					<div class="container">
+						<h2>Upload your logfile</h2>
+						<p>Use the UPLOAD button below to upload your logfile<br />
+						The log has to have a .las extension (and assumes this is actually a LAS file...)</p>
+						<p>
+						<form method="post" enctype="multipart/form-data" style="display: inline;"  action="upload">
+						<label for="file-upload" class="button special">
+						Upload
+						</label>
+						<input id="file-upload" style="display: none;" type="file" name="myfile" onchange="this.form.submit();">
+						</p>
+
+					</div>
+				</header>
+				<div class="content dark style1 featured">
+					<div class="container">
+						<div class="row">
+							<!-- <div class="col-4 col-12-narrow">
+								<section>
+									<span class="feature-icon"><span class="icon fa-clock-o"></span></span>
+									<header>
+										<h3>Gravida</h3>
+									</header>
+									<p>Gravida dis placerat lectus ante vel nunc euismod est turpis sodales.
+									Diam tempor dui lacinia accumsan vivamus. Gravida dis placerat lectus
+									ante vel nunc euismod est turpis sodales. Diam tempor dui lacinia
+									accumsan vivamus.</p>
+								</section>
+							</div> -->
+							<div class="col-6 col-12-narrow">
+								<section>
+									<span class="feature-icon"><span class="icon fa-bolt"></span></span>
+									<header>
+										<h3>LOGS for {{ filename }}</h3>
+									</header>
+									<div width=95%>
+									{{ html|safe }}
+									</div>
+								</section>
+							</div>
+							<div class="col-6 col-12-narrow">
+								<section>
+									<span class="feature-icon"><span class="icon fa-cloud"></span></span>
+									<header>
+										<h3>Inspect and classify</h3>
+									</header>
+									<p>
+										<p>Now inspect your logs and see if they were loaded correctly. You can zoom and scrolly
+											to check more details.<br />
+										When you are ready hit the button below to classify into 9 facies using the XGBoost model. </p>
+										<p><h3>The facies are:</h3>
+											{% for f in facies: %}
+												{{ f }}<br />
+											{% endfor %}
+									</p>
+										<footer>
+											<a href="classify-{{ filename }}" class="button special">Classify</a>
+										</footer>
+<!--										<input type="number" name="midepth" min={{min}} max={{max}} value={{min}}>
+										<label for="slider-midepth">Minimum depth</label>
+									-->
+									</p>
+								</section>
+							</div>
+							<div class="col-12">
+								<footer>
+									<a href="#last" class="button scrolly">Give us feedback</a>
+								</footer>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+{% endblock %}

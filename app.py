@@ -18,7 +18,7 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('index.html', title='LITHOGRAPH')
+    return render_template('base.html', title='LITHOGRAPH')
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -40,7 +40,7 @@ def upload_file():
             return redirect(url_for('file_uploaded', filename=filename, _anchor='upload'))
 #            return redirect(request.url)
 #            return redirect(url_for('uploaded_file',filename=filename))
-    return render_template('index.html', title='LITHOGRAPH')
+    return render_template('base.html', title='LITHOGRAPH')
 
 # from flask import send_from_directory
 #
@@ -57,7 +57,17 @@ def file_uploaded():
     bokehhtml = htmlbokehplot(df,mi,ma)
     print('min = {}'.format(mi))
     print('max = {}'.format(ma))
-    return render_template('index.html', title='LITHOGRAPH', min=mi, max=ma, filename=filename, html=bokehhtml)
+    facies = ['sand','shale','silstone','Interbededd sand-shale','Limestone','mudstone','volcanic','Dolomite']
+    return render_template('uploaded.html', title='LITHOGRAPH', facies=facies, filename=filename, html=bokehhtml)
+
+@app.route('/classify-<filename>')
+def classify_logs(filename):
+    print('filename = {}'.format(filename))
+    df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    mi, ma = minmax_depth(df, ['GR','RHOB'])
+    bokehhtml = htmlbokehplot(df,mi,ma)
+    return render_template('classified.html', title='LITHOGRAPH', filename=filename, html=bokehhtml)
+
 
 if __name__ == '__main__':
     app.run(debug = True)
