@@ -20,46 +20,36 @@
 					<p>An online log classification tool</p>
 				</header>
 				<footer>
-					<a href="#intro" class="button scrolly">See what you can do with your data</a>
+					<a href="#dataintro" class="button scrolly">See how it works</a>
 				</footer>
 			</section>
 
-			<!-- Intro -->
-				<section id="intro" class="main">
+			<!-- Data intro -->
+				<section id="dataintro" class="main">
 					<header>
 						<div class="container">
-							<h2>Introduction: the model</h2>
-							<p>We trained a model to predict your lithology.<br />
-							Se below some details.</p>
+							<h2>Our data</h2>
+							<p>We cleaned, labeled and prepared 9 logs of the Poseidon survey<br />
+							(credits...)</p>
 						</div>
 					</header>
-					<div class="content dark style2">
+					<div class="content dark style1 featured"><!--<div class="content dark style2">-->
+
 						<div class="container">
 							<div class="row">
 								<div class="col-4 col-12-narrow">
 									<section>
-										<h3>Augue vivamus sed ipsum commodo lorem dolor</h3>
-										<p>Gravida dis placerat lectus ante vel nunc euismod est turpis sodales. Diam
-										tempor dui lacinia eget ornare varius gravida. Gravida dis placerat lectus ante
-										vel nunc euismod est turpis sodales. Diam tempor dui lacinia accumsan vivamus
-										augue cubilia vivamus nisi eu eget ornare varius gravida euismod.  Gravida dis
-										lorem ipsum dolor placerat magna tempus feugiat.</p>
-										<p>Lectus ante vel nunc euismod est turpis sodales. Diam tempor dui lacinia
-										accumsan vivamus augue cubilia vivamus nisi eu eget ornare varius gravida dolore
-										euismod lorem ipsum dolor.</p>
+										<h3>Poseidon</h3>
+										<p>Poseidon is in Australia</p>
+										<p>Explained...</p>
 										<footer>
-											<a href="#third" class="button scrolly">Accumsan nisi tempor</a>
+											<a href="#modelintro" class="button scrolly">Now check our models</a>
 										</footer>
 									</section>
 								</div>
 								<div class="col-8 col-12-narrow">
 									<div class="row">
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
-										<div class="col-6"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>
+										<div class="col-12"><a href="images/poseidon-msno.png" class="image fit"><img src="images/poseidon-msno.png" alt="" /></a></div>
 									</div>
 								</div>
 							</div>
@@ -67,8 +57,65 @@
 					</div>
 				</section>
 
+			<!-- Model intro -->
+				<section id="modelintro" class="main">
+					<header>
+						<div class="container">
+							<h2>Our models</h2>
+							<p>We trained a model to predict your lithology.<br />
+							See below some details.</p>
+						</div>
+					</header>
+					<div class="content dark style1 featured"><!--<div class="content dark style2">-->
+
+						<div class="container">
+							<div class="row">
+								<div class="col-4 col-12-narrow">
+									<section>
+										<h3>XGBoost</h3>
+										<p>Supervised learning</p>
+										<p>Explained...</p>
+									</section>
+								</div>
+								<div class="col-8 col-12-narrow">
+									<div class="row">
+										<div class="col-12"><a href="images/poseidon-msno.png" class="image fit"><img src="images/poseidon-msno.png" alt="" /></a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row" style="padding-top: 100px">
+								&nbsp;
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div class="col-8 col-12-narrow">
+									<div class="row">
+										<div class="col-12"><a href="images/poseidon-msno.png" class="image fit"><img src="images/poseidon-msno.png" alt="" /></a></div>
+									</div>
+								</div>
+								<div class="col-4 col-12-narrow">
+									<section>
+										<h3>Deep learning</h3>
+										<p>We ran some deep learning models</p>
+										<p>Explained...</p>
+										<footer>
+											<a href="#upload" class="button scrolly">Now classify your own log</a>
+										</footer>
+									</section>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
 		<!-- First -->
-			<section id="first" class="main">
+			<section id="upload" class="main">
 				<header>
 					<div class="container">
 						<h2>Upload your logfile</h2>
@@ -117,14 +164,18 @@
 										<h3>Give depth range:</h3>
 									</header>
 									<p>
-										<input type="number" name="midepth" min={{min}} max={{max}} value={{min}}>
+										<footer>
+											<a href="classify" class="button special">Classify</a>
+										</footer>
+<!--										<input type="number" name="midepth" min={{min}} max={{max}} value={{min}}>
 										<label for="slider-midepth">Minimum depth</label>
-</p>
+									-->
+									</p>
 								</section>
 							</div>
 							<div class="col-12">
 								<footer>
-									<a href="#second" class="button scrolly">Gravida tempor lacinia</a>
+									<a href="#last" class="button scrolly">Give us feedback</a>
 								</footer>
 							</div>
 						</div>
@@ -401,7 +452,7 @@
 		-->
 
 		<!-- Fourth -->
-			<section id="fourth" class="main">
+			<section id="last" class="main">
 				<header>
 					<div class="container">
 						<h2>Give us some feedback!</h2>
