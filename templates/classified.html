@@ -33,8 +33,8 @@
 									accumsan vivamus.</p>
 								</section>
 							</div> -->
-							<div class="col-6 col-12-narrow">
-								<section>
+							<div class="col-12 col-12-narrow">
+								<section id="logdisplay">
 									<span class="feature-icon"><span class="icon fa-bolt"></span></span>
 									<header>
 										<h3>LOGS for {{ filename }}</h3>
@@ -44,29 +44,10 @@
 									</div>
 								</section>
 							</div>
-							<div class="col-6 col-12-narrow">
-								<section>
-									<span class="feature-icon"><span class="icon fa-cloud"></span></span>
-									<header>
-										<h3>Inspect and classify</h3>
-									</header>
-									<p>
-										<p>Now inspect your logs and see if they were loaded correctly. You can zoom and scrolly
-											to check more details.<br />
-										When you are ready hit the button below to classify into 9 facies using the XGBoost model. </p>
-										<p><h3>The facies are:</h3>
-											{% for f in facies: %}
-												{{ f }}<br />
-											{% endfor %}
-									</p>
-										<footer>
-											<a href="classify-{{ filename }}" class="button special">Classify</a>
-										</footer>
-<!--										<input type="number" name="midepth" min={{min}} max={{max}} value={{min}}>
-										<label for="slider-midepth">Minimum depth</label>
-									-->
-									</p>
-								</section>
+							<div class="col-12">
+								<footer>
+									<img src="images/legend.png" alt="" />
+								</footer>
 							</div>
 							<div class="col-12">
 								<footer>

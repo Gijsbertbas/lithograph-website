@@ -53,14 +53,14 @@
 									<p>
 										<p>Now inspect your logs and see if they were loaded correctly. You can zoom and scrolly
 											to check more details.<br />
-										When you are ready hit the button below to classify into 9 facies using the XGBoost model. </p>
-										<p><h3>The facies are:</h3>
+										When you are ready hit the button below to classify into 8 facies using the XGBoost model. </p>
+										<p><h3>The 8 facies are:</h3>
 											{% for f in facies: %}
 												{{ f }}<br />
 											{% endfor %}
 									</p>
 										<footer>
-											<a href="classify-{{ filename }}" class="button special">Classify</a>
+											<a href="classify-{{ filename }}#logdisplay" class="button special">Classify</a>
 										</footer>
 <!--										<input type="number" name="midepth" min={{min}} max={{max}} value={{min}}>
 										<label for="slider-midepth">Minimum depth</label>

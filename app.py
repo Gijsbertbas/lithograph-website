@@ -2,8 +2,9 @@ import os
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
 
-from scripts.utils import las2df, minmax_depth
-from scripts.plotutils import htmlbokehplot
+from scripts.utils import las2df, minmax_depth, reducedf
+from scripts.plotutils import htmlbokehplot, htmlclassifiedplot
+from scripts.ml import load_model, xgb_predict
 
 UPLOAD_FOLDER = os.path.dirname(__file__)+'/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'las', 'png']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -37,24 +38,18 @@ def upload_file():
             filename = secure_filename(file.filename)
             print('filename = {}'.format(filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('file_uploaded', filename=filename, _anchor='upload'))
+            return redirect(url_for('file_uploaded', filename=filename, _anchor='logdisplay'))
 #            return redirect(request.url)
 #            return redirect(url_for('uploaded_file',filename=filename))
     return render_template('base.html', title='LITHOGRAPH')
-
-# from flask import send_from_directory
-#
-# @app.route('/uploads/<filename>')
-# def uploaded_file(filename):
-#     return send_from_directory(app.config['UPLOAD_FOLDER'],
-#                                filename)
 
 @app.route('/uploaded')
 def file_uploaded():
     filename = request.args['filename']  # counterpart for url_for()
     df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     mi, ma = minmax_depth(df, ['GR','RHOB'])
-    bokehhtml = htmlbokehplot(df,mi,ma)
+    df = reducedf(df, mi, ma)
+    bokehhtml = htmlbokehplot(df)
     print('min = {}'.format(mi))
     print('max = {}'.format(ma))
     facies = ['sand','shale','silstone','Interbededd sand-shale','Limestone','mudstone','volcanic','Dolomite']
@@ -65,7 +60,10 @@ def classify_logs(filename):
     print('filename = {}'.format(filename))
     df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     mi, ma = minmax_depth(df, ['GR','RHOB'])
-    bokehhtml = htmlbokehplot(df,mi,ma)
+    df = reducedf(df, mi, ma)
+    model = load_model('data/poseidon-model.dat')
+    prediction = xgb_predict(logs_df=df, model=model)
+    bokehhtml = htmlclassifiedplot(df,prediction)
     return render_template('classified.html', title='LITHOGRAPH', filename=filename, html=bokehhtml)
 
 

@@ -60,3 +60,6 @@ def scale(logs_df, tracks):
     for col in tracks:
         logs_df[col] = preprocessing.scale(logs_df[col])
     return logs_df
+
+def reducedf(df,mi,ma):
+    return df[(df['DEPT'] >= mi) & (df['DEPT'] <= ma)]
