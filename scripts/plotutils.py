@@ -37,23 +37,6 @@ def lineplots(df):
 
     return p, p2, p3
 
-def lineplots2(df,tracks=['GR','RHOB']):
-    x = df['GR']
-    y = df['DEPT']
-
-    # create a new plot with a title and axis labels
-    p = figure(title="gamma ray", x_axis_label='GR', y_axis_label='depth(m)', y_range=(y.max(), y.min()),tools="pan,ywheel_zoom,lasso_select,box_select,hover,reset", tooltips=[("GR", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
-    # add a line renderer with legend and line thickness
-    p.line(x, y, legend="GR", line_width=0.5, color='green')
-    #new plot
-    x2 = df['RHOB']
-    p2 = figure(title="density", x_axis_label='RHOB', y_axis_label='depth(m)', y_range=p.y_range, tools="pan,ywheel_zoom,lasso_select,box_select,hover,reset", tooltips=[("RHOB", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
-    # add a line renderer with legend and line thickness
-    p2.line(x2, y, legend="RHOB", line_width=0.5, color='blue')
-
-    return p, p2
-
-
 def htmlbokehplot(df):
 
     p, p2, p3 = lineplots(df)
@@ -62,7 +45,7 @@ def htmlbokehplot(df):
     #s = row(p,p2)
     return file_html(s, CDN, "my plot")
 
-def htmlclassifiedplot(df,prediction):
+def lithology(df,prediction):
 
     p, p2, p3 = lineplots(df)
 
@@ -307,6 +290,12 @@ def htmlclassifiedplot(df,prediction):
     plot.add_glyph(source8, glyph8)
     #plot.add_glyph(source9, glyph9)
 
+    return plot
+
+def htmlclassifiedplot(df, prediction):
+
+    p, p2, p3 = lineplots(df)
+    plot = lithology(df, prediction)
     sss = gridplot([[p,p2,p3,plot]], sizing_mode="scale_width")
 
     return file_html(sss, CDN, "my plot")

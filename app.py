@@ -1,10 +1,12 @@
 import os
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
+import pandas as pd
 
 from scripts.utils import las2df, minmax_depth, reducedf
 from scripts.plotutils import htmlbokehplot, htmlclassifiedplot
 from scripts.ml import load_model, xgb_predict
+from scripts.lstm_from_dataframe import dataframe_model_out
 
 UPLOAD_FOLDER = os.path.dirname(__file__)+'/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'las', 'png']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -50,6 +52,7 @@ def file_uploaded():
     mi, ma = minmax_depth(df, ['GR','RHOB'])
     df = reducedf(df, mi, ma)
     bokehhtml = htmlbokehplot(df)
+    print('length: {}'.format(len(bokehhtml)))
     print('min = {}'.format(mi))
     print('max = {}'.format(ma))
     facies = ['sand','shale','silstone','Interbededd sand-shale','Limestone','mudstone','volcanic','Dolomite']
@@ -62,9 +65,32 @@ def classify_logs(filename):
     mi, ma = minmax_depth(df, ['GR','RHOB'])
     df = reducedf(df, mi, ma)
     model = load_model('data/poseidon-model.dat')
+    print('loaded model')
     prediction = xgb_predict(logs_df=df, model=model)
+    print('predicted')
     bokehhtml = htmlclassifiedplot(df,prediction)
     return render_template('classified.html', title='LITHOGRAPH', filename=filename, html=bokehhtml)
+
+
+@app.route('/deepclassify-<filename>')
+def deepclassify_logs(filename):
+    print('filename = {}'.format(filename))
+    df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    mi, ma = minmax_depth(df, ['GR','RHOB','NPHI'])
+    df = reducedf(df, mi, ma)
+    model = load_model('data/poseidon-model.dat')
+    prediction = xgb_predict(logs_df=df, model=model)
+    bokehhtml = htmlclassifiedplot(df,prediction)
+
+    df2 = pd.read_csv('data/Pharos_1.csv')
+    pred, scr = dataframe_model_out(df2)
+    df2['DEPT']=df2.index
+    deephtml = htmlclassifiedplot(df2,pred)
+
+    print(df.shape, len(pred))
+    #df = csv2df('data/Pharos_1.csv')
+
+    return render_template('deepclassified.html', title='LITHOGRAPH', filename=filename, html=bokehhtml, deephtml=deephtml)
 
 
 if __name__ == '__main__':

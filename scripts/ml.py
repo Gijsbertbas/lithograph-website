@@ -29,5 +29,5 @@ def xgb_predict(model,
         data = np.hstack((data, logs_df[c].values.reshape((-1,1))))
 
     x_test = preprocessing.scale(data)
-
+    #return model.predict(x_test), np.max(model.predict_proba(x_test), axis=1)
     return model.predict(x_test)
