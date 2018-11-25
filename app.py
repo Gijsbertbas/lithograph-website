@@ -37,7 +37,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             print('filename = {}'.format(filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('file_uploaded', filename=filename, _anchor='first'))
+            return redirect(url_for('file_uploaded', filename=filename, _anchor='upload'))
 #            return redirect(request.url)
 #            return redirect(url_for('uploaded_file',filename=filename))
     return render_template('index.html', title='LITHOGRAPH')
