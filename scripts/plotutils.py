@@ -19,18 +19,23 @@ from scipy import stats
 import numpy as np
 
 
-def lineplots(df,tracks=['GR','RHOB']):
+def lineplots(df):
+
     x = df['GR']
     y = df['DEPT']
-    p = figure(title="gamma ray", x_axis_label='GR', y_axis_label='depth(m)', y_range=(y.max(),y.min()), tools="pan, box_zoom,ywheel_zoom,hover,reset", tooltips=[("GR", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
+    p = figure(title="gamma ray", x_axis_label='GR (API)', y_axis_label='depth(m)', y_range=(y.max(),y.min()), tools="pan, box_zoom,ywheel_zoom,hover,reset", tooltips=[("GR", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
     # add a line renderer with legend and line thickness
     p.line(x, y, legend="GR", line_width=0.5, color='green')
     #new plot
     x2 = df['RHOB']
-    p2 = figure(title="density", x_axis_label='density', y_axis_label='depth (m)', y_range=p.y_range, tools="pan,box_zoom,ywheel_zoom,hover,reset", tooltips=[("RHOB", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
-    # add a line renderer with legend and line thickness
+    p2 = figure(title="density", x_axis_label='density (kg/cc)', y_axis_label='depth (m)', y_range=p.y_range, tools="pan,box_zoom,ywheel_zoom,hover,reset", tooltips=[("RHOB", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
     p2.line(x2, y, legend="RHOB", line_width=0.5, color='blue')
-    return p, p2
+
+    x3 = df['NPHI']
+    p3 = figure(x_axis_label='neutron porosity', y_axis_label='depth (m)', y_range=p.y_range, x_range=((0,1)), tools="pan,box_zoom,ywheel_zoom,hover,reset", tooltips=[("NPHI", "@x"), ("depth", "@y")], plot_width=300, plot_height = 800)
+    p3.line(x3, y, legend="NPHI",line_width=0.5, color='red')
+
+    return p, p2, p3
 
 def lineplots2(df,tracks=['GR','RHOB']):
     x = df['GR']
@@ -51,15 +56,15 @@ def lineplots2(df,tracks=['GR','RHOB']):
 
 def htmlbokehplot(df):
 
-    p, p2 = lineplots(df)
+    p, p2, p3 = lineplots(df)
 
-    s = gridplot([[p,p2]])
+    s = gridplot([[p,p2,p3]], sizing_mode="scale_width", plot_height=1500)
     #s = row(p,p2)
     return file_html(s, CDN, "my plot")
 
 def htmlclassifiedplot(df,prediction):
 
-    p, p2 = lineplots(df)
+    p, p2, p3 = lineplots(df)
 
     # need to be replaces with predicted lithologies
     #a = np.random.randint(1,9,len(df['DEPT']))
@@ -276,12 +281,12 @@ def htmlclassifiedplot(df,prediction):
 
     # parameters of the figure
     plot = figure(
-        title="Lithologies", y_axis_label='depth (m)', x_range=(-1,1),
-        plot_width=150, plot_height=800, y_range=p.y_range,
-        h_symmetry=False, v_symmetry=False, min_border=0, tools="pan,ywheel_zoom,lasso_select,box_zoom,hover,reset",
-        tooltips=[("Lithology", "@lith")])
+        title="Lithologies", x_axis_label='', y_axis_label='depth (m)', x_range=(-1,1),
+        plot_width=300, plot_height=800, y_range=p.y_range,
+        h_symmetry=False, v_symmetry=False, tools="pan,ywheel_zoom,lasso_select,box_zoom,hover,reset",
+        tooltips=[("Lithology", "@lith")])#min_border=0,
 
-    plot.xaxis.visible = False
+    #plot.xaxis.visible = False
 
     glyph = Patches(xs="xs", ys="ys", fill_color="#F4D03F", line_color='blue', line_alpha=0)
     glyph2 = Patches(xs="xs", ys="ys", fill_color="#6E2C00", line_color='blue', line_alpha=0)
@@ -302,6 +307,6 @@ def htmlclassifiedplot(df,prediction):
     plot.add_glyph(source8, glyph8)
     #plot.add_glyph(source9, glyph9)
 
-    sss = gridplot([[p,p2,plot]])
+    sss = gridplot([[p,p2,p3,plot]], sizing_mode="scale_width")
 
     return file_html(sss, CDN, "my plot")
