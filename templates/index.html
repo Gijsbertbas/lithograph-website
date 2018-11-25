@@ -15,9 +15,10 @@
 
 		<!-- Header -->
 			<section id="header" class="dark">
+<a href="https://github.com/Gijsbertbas/lithograph-website"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
 				<header>
 					<h1>Welcome to {{ title }}</h1>
-					<p>An online log classification tool</p>
+					<p>Translating the laguange of lithology</p>
 				</header>
 				<footer>
 					<a href="#dataintro" class="button scrolly">See how it works</a>
@@ -30,7 +31,7 @@
 						<div class="container">
 							<h2>Our data</h2>
 							<p>We cleaned, labeled and prepared 9 logs of the Poseidon survey<br />
-							(credits...)</p>
+							(privided by <a href="https://goo.gl/xMzKY9">ConocoPhillips</a> and licenced <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons</a>)</p>
 						</div>
 					</header>
 					<div class="content dark style1 featured"><!--<div class="content dark style2">-->
@@ -75,7 +76,10 @@
 									<section>
 										<h3>XGBoost</h3>
 										<p>Supervised learning</p>
-										<p>Explained...</p>
+										<p><ul>
+											<li>gradient boosting algorithm</li>
+											<li>converts measurements at single depth into facies</li>
+											<li>does not take spatial correlation into account</li></p>
 									</section>
 								</div>
 								<div class="col-8 col-12-narrow">
@@ -102,8 +106,11 @@
 								<div class="col-4 col-12-narrow">
 									<section>
 										<h3>Deep learning</h3>
-										<p>We ran some deep learning models</p>
-										<p>Explained...</p>
+										<p>Bi-directional LSTM (Long-Short Term Memory)</p>
+											<p><ul>
+												<li>deep learning approach for higher accuracy</li>
+												<li>adapted network for linguistic translation to learn the language of geology</li>
+												<li>accounts for typical spatial/temporal geological sequences</li></p>
 										<footer>
 											<a href="#upload" class="button scrolly">Now classify your own log</a>
 										</footer>
