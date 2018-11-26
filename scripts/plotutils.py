@@ -1,16 +1,7 @@
-#from bokeh.plotting import figure, output_file, show
-#import bokeh.plotting as bk
-#from bokeh.layouts import gridplot
-#from bokeh.plotting import figure, show, output_file
-#from bokeh.models import Range1d
-#from bokeh.io import show
-#from bokeh.models import LogColorMapper
-#from bokeh.palettes import Viridis6 as palette
 from bokeh.plotting import figure
 from bokeh.layouts import row, gridplot
 from bokeh.resources import CDN
 from bokeh.embed import file_html
-#from bokeh.models import ColumnDataSource
 
 from bokeh.models import ColumnDataSource, Plot, LinearAxis, Grid
 from bokeh.models.glyphs import Patches
@@ -40,17 +31,14 @@ def lineplots(df):
 def htmlbokehplot(df):
 
     p, p2, p3 = lineplots(df)
-
     s = gridplot([[p,p2,p3]], sizing_mode="scale_width", plot_height=1500)
-    #s = row(p,p2)
+
     return file_html(s, CDN, "my plot")
 
-def lithology(df,prediction):
+def htmlclassifiedplot(df,prediction):
 
     p, p2, p3 = lineplots(df)
 
-    # need to be replaces with predicted lithologies
-    #a = np.random.randint(1,9,len(df['DEPT']))
     a = prediction
     b = list(a[0:-1])
 
@@ -290,12 +278,6 @@ def lithology(df,prediction):
     plot.add_glyph(source8, glyph8)
     #plot.add_glyph(source9, glyph9)
 
-    return plot
-
-def htmlclassifiedplot(df, prediction):
-
-    p, p2, p3 = lineplots(df)
-    plot = lithology(df, prediction)
     sss = gridplot([[p,p2,p3,plot]], sizing_mode="scale_width")
 
     return file_html(sss, CDN, "my plot")
