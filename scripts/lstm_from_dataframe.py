@@ -48,10 +48,10 @@ class LSTMTagger(nn.Module):
 
 
 
-def dataframe_model_out(data):
+def dataframe_model_out(data, trained_model):
 
   model = LSTMTagger(7, 10, 9)
-  model.load_state_dict(torch.load('data/biLSTM_v1.pt'))
+  model.load_state_dict(torch.load(trained_model))
   model.eval()
 
   facies_np = data.values
@@ -100,7 +100,3 @@ def dataframe_model_out(data):
 
 
 #pred, scr = dataframe_model_out(pd.read_csv('https://github.com/roliveira/lithograph/raw/master/data/poseidon-0.csv'))
-
-
-
-#np.sum(pred==8)

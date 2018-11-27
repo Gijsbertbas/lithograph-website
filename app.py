@@ -9,7 +9,7 @@ from scripts.ml import load_model, xgb_predict
 from scripts.lstm_from_dataframe import dataframe_model_out
 
 UPLOAD_FOLDER = os.path.dirname(__file__)+'/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'las', 'png']) #'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['txt', 'las'])
 
 app = Flask(__name__, static_url_path='')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -41,13 +41,11 @@ def upload_file():
             print('filename = {}'.format(filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('file_uploaded', filename=filename, _anchor='logdisplay'))
-#            return redirect(request.url)
-#            return redirect(url_for('uploaded_file',filename=filename))
     return render_template('base.html', title='LITHOGRAPH')
 
 @app.route('/uploaded')
 def file_uploaded():
-    filename = request.args['filename']  # counterpart for url_for()
+    filename = request.args['filename']
     df = las2df(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     mi, ma = minmax_depth(df, ['GR','RHOB'])
     df = reducedf(df, mi, ma)
@@ -83,17 +81,18 @@ def deepclassify_logs(filename):
     bokehhtml = htmlclassifiedplot(df,prediction)
 
     df2 = pd.read_csv('data/Pharos_1.csv')
-    pred, scr = dataframe_model_out(df2)
+    lstm_model = 'data/biLSTM_v1.pt'
+    pred, scr = dataframe_model_out(df2, lstm_model)
     df2['DEPT']=df2.index
     deephtml = htmlclassifiedplot(df2,pred)
-
-    print(df.shape, len(pred))
-    #df = csv2df('data/Pharos_1.csv')
-
     return render_template('deepclassified.html', title='LITHOGRAPH', filename=filename, html=bokehhtml, deephtml=deephtml)
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
 
-# run with flask run --host=0.0.0.0
+#######
+# run on your machine with 'flask run'
+# to run and broadcasting within your network use 'flask run --host=0.0.0.0'
+# the app should then be available on '<your ip-address>:5000'
+#######

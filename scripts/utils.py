@@ -6,7 +6,6 @@ import numpy as np
 def las2df(fname):
     w = welly.Well.from_las(fname)
     df = w.df()
-    #df.index*=-1
     df['DEPT'] = df.index
     return df
 

@@ -1,13 +1,12 @@
 {% extends "index.html" %}
 {% block content %}
 
-		<!-- First -->
 			<section id="upload" class="main">
 				<header>
 					<div class="container">
 						<h2>Upload your logfile</h2>
 						<p>Use the UPLOAD button below to upload your logfile<br />
-						The log has to have a .las extension (and assumes this is actually a LAS file...)</p>
+							<b>note:</b> The log has to have a .las extension and, for the time being, this only works with Poseidon wells (or files with exactly the same log suite and names).</p>
 						<p>
 						<form method="post" enctype="multipart/form-data" style="display: inline;"  action="upload">
 						<label for="file-upload" class="button special">
@@ -21,18 +20,6 @@
 				<div class="content dark style1 featured">
 					<div class="container">
 						<div class="row">
-							<!-- <div class="col-4 col-12-narrow">
-								<section>
-									<span class="feature-icon"><span class="icon fa-clock-o"></span></span>
-									<header>
-										<h3>Gravida</h3>
-									</header>
-									<p>Gravida dis placerat lectus ante vel nunc euismod est turpis sodales.
-									Diam tempor dui lacinia accumsan vivamus. Gravida dis placerat lectus
-									ante vel nunc euismod est turpis sodales. Diam tempor dui lacinia
-									accumsan vivamus.</p>
-								</section>
-							</div> -->
 							<div class="col-12 col-12-narrow">
 								<section id="logdisplay">
 									<span class="feature-icon"><span class="icon fa-bolt"></span></span>
